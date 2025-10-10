@@ -21,11 +21,11 @@ public class Transaction : AggregateRoot
     public string? SourceType { get; set; }
     public IReadOnlyCollection<TransactionItem> Items { 
         get {
-            return _items;
+            return _items.AsReadOnly();
         } 
     }
 
-    public Transaction(Guid creatorId, TransactionType type, Guid? sourceId = null, string? sourceType= null) : base(Guid.NewGuid())
+    internal Transaction(Guid creatorId, TransactionType type, Guid? sourceId = null, string? sourceType= null) : base(Guid.NewGuid())
     {
         CreatorId = creatorId;
         Status = TransactionStatus.Created;

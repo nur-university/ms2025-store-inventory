@@ -28,7 +28,6 @@ public class TransactionFactory : ITransactionFactory
             transaction.AddItem(item.itemId, item.quantity, item.unitaryCost);
         }
 
-
         return transaction;
     }
 

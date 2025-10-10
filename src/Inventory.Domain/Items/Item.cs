@@ -12,11 +12,17 @@ public class Item : AggregateRoot
     public QuantityValue Available { get; private set; } 
     public CostValue UnitaryCost { get; private set; }
 
-    public Item(Guid id) : base(id)
+    public Item(Guid id, string name) : base(id)
     {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new DomainException(ItemErros.NameIsRequired());
+        }
+        Name = name;
         Stock = 0;
         Reserved = 0;
         Available = 0;
+        UnitaryCost = 0;
     }
 
     /// <summary>
