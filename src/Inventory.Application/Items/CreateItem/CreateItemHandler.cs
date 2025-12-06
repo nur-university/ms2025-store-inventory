@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Inventory.Application.Items.CreateItem;
 
-internal class CreateItemHandler : IRequestHandler<CreateItemCommand, Result<Guid>>
+public class CreateItemHandler : IRequestHandler<CreateItemCommand, Result<Guid>>
 {
     private readonly IItemRepository _itemRepository;
     private readonly IUnitOfWork _unitOfWork;

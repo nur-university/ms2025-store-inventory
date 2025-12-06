@@ -41,6 +41,7 @@ public static class DependencyInjection
 
 
         // Register repositories
+        services.AddScoped<IDatabase, PersistenceDbContext>();
         services.AddScoped<IItemRepository, ItemRepository>();
         services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
