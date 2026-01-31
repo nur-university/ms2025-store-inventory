@@ -12,7 +12,7 @@ namespace Inventory.Infrastructure.Persistence.DomainModel.Config
             builder.ToTable("item");
 
             builder.HasKey(x => x.Id);
-            
+
             builder.Property(x => x.Id)
                 .HasColumnName("itemId");
 

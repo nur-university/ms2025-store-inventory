@@ -9,7 +9,10 @@ namespace Inventory.Domain.Transactions;
 public interface ITransactionFactory
 {
     Transaction CreateEntryTransaction(Guid userCreatorId, 
-        List<(Guid itemId, int quantity, decimal unitaryCost)> items, Guid? sourceId = null, string? sourceType = null);
+        List<(Guid itemId, int quantity, decimal unitaryCost)> items, 
+        Guid? sourceId = null, string? sourceType = null);
+
     Transaction CreateExitTransaction(Guid userCreatorId, 
-        List<(Guid itemId, int quantity)> items, Guid? sourceId = null, string? sourceType = null) ;
+        List<(Guid itemId, int quantity)> items, 
+        Guid? sourceId = null, string? sourceType = null) ;
 }

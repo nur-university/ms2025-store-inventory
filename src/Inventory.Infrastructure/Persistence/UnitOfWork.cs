@@ -28,17 +28,19 @@ internal class UnitOfWork : IUnitOfWork
         var domainEvents = _dbContext.ChangeTracker
             .Entries<Entity>()
             .Where(x => x.Entity.DomainEvents.Any())
-            .Select(x =>
+            .Select(entityEntry =>
             {
-                var domainEvents = x.Entity
+                var domainEvents = entityEntry.Entity
                                 .DomainEvents
                                 .ToImmutableArray();
-                x.Entity.ClearDomainEvents();
+                entityEntry.Entity.ClearDomainEvents();
 
                 return domainEvents;
             })
             .SelectMany(domainEvents => domainEvents)
             .ToList();
+
+        //[[e1, e2], [e3]] => [e1, e2, e3]
 
         //Publish Domain Events
         foreach (var domainEvent in domainEvents)

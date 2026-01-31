@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace Inventory.Application.Items.EventHandlers;
 
-internal class UpdateStockWhenTransactionCompleted : INotificationHandler<TransactionCompleted>
+internal class UpdateStockWhenTransactionCompleted : 
+    INotificationHandler<TransactionCompleted>
 {
     private readonly IItemRepository _itemRepository;
     private readonly ICostStrategy _costStrategy;
@@ -41,6 +42,7 @@ internal class UpdateStockWhenTransactionCompleted : INotificationHandler<Transa
             {
                 itemEntity.ApplyReservation(item.Quantity);
             }
+            await _itemRepository.UpdateAsync(itemEntity);
         }
     }
 }

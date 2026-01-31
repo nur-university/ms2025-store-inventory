@@ -4,15 +4,11 @@ using Inventory.Domain.Transactions.Exceptions;
 using Joseco.DDD.Core.Abstractions;
 using Joseco.DDD.Core.Results;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Inventory.Application.Transactions.CreateTransaction;
 
-internal class CreateTransactionHandler : IRequestHandler<CreateTransactionCommand, Result<Guid>>
+internal class CreateTransactionHandler : 
+    IRequestHandler<CreateTransactionCommand, Result<Guid>>
 {
     private readonly ITransactionFactory _transactionFactory;
     private readonly ITransactionRepository _transactionRepository;

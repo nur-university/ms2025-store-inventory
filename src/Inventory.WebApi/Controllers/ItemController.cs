@@ -23,6 +23,13 @@ public class ItemController : ControllerBase
     {
         var result = await _mediator.Send(request);
 
+        if(result.IsFailure)
+        {
+            return result.Error.Type == Joseco.DDD.Core.Results.ErrorType.NotFound ?
+                NotFound(result.Error.Description) :
+                BadRequest(result.Error);
+        }
+
         return Ok(result);
     }
 

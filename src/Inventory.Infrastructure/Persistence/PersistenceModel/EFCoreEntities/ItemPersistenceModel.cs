@@ -30,4 +30,6 @@ internal class ItemPersistenceModel
     [Column("unitaryCost", TypeName = "decimal(18,2)")]
     [Required]
     public decimal UnitaryCost { get; set; }
+
+    public DateTime CreationDate { get; set; } = DateTime.Now;
 }

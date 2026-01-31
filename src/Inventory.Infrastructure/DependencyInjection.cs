@@ -38,6 +38,8 @@ public static class DependencyInjection
         services.AddDbContext<DomainDbContext>(context =>
                 context.UseNpgsql(dbConnectionString));
 
+        services.AddScoped<IDatabase, PersistenceDbContext>();
+        //Singleton, Scoped, Transient
 
 
         // Register repositories

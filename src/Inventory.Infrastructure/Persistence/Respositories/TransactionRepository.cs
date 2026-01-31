@@ -1,4 +1,5 @@
 ﻿using Inventory.Domain.Transactions;
+using Inventory.Domain.Transactions.Events;
 using Inventory.Infrastructure.Persistence.DomainModel;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,12 +34,27 @@ internal class TransactionRepository : ITransactionRepository
         }
         else
         {
-            return await _dbContext.Transaction.Include("_items").FirstOrDefaultAsync(i => i.Id == id);
+            return await _dbContext.Transaction
+                .Include("_items").FirstOrDefaultAsync(i => i.Id == id);
         }
     }
-
+    /*
+     
+     p => C1, C2, C3
+     
+     */
     public Task UpdateAsync(Transaction transaction)
     {
+        var added = transaction.DomainEvents.Where(e => e is TransactionItemAdded)
+            .Select(e => (TransactionItemAdded)e)
+            .ToList();
+        foreach(var e in added)
+        {
+            var itemToAdd = transaction.Items.First(i => i.ItemId == e.ItemId);
+            _dbContext.TransactionItem.Add(itemToAdd);
+        }
+
+
         _dbContext.Transaction.Update(transaction);
         return Task.CompletedTask;
     }

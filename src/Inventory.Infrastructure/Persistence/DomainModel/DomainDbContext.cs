@@ -12,6 +12,7 @@ namespace Inventory.Infrastructure.Persistence.DomainModel
     {
         public DbSet<Item> Item { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
+        public DbSet<TransactionItem> TransactionItem { get; set; }
         public DbSet<User> User { get; set; }
 
         public DomainDbContext(DbContextOptions<DomainDbContext> options) : base(options)

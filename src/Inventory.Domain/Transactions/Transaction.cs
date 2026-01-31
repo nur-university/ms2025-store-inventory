@@ -43,9 +43,12 @@ public class Transaction : AggregateRoot
         {
             throw new InvalidOperationException("Cannot add items to a transaction that is not in Created status");
         }
+
         TransactionItem item = new TransactionItem(itemId, Id, quantity, unitaryCost);
         _items.Add(item);
         TotalCost += item.SubTotal;
+
+        AddDomainEvent(new TransactionItemAdded(itemId));
 
         if(Type == TransactionType.Exit)
         {
