@@ -16,7 +16,7 @@ public class Item : AggregateRoot
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new DomainException(ItemErros.NameIsRequired());
+            throw new DomainException(ItemErrors.NameIsRequired());
         }
         Name = name;
         Stock = 0;
@@ -37,11 +37,11 @@ public class Item : AggregateRoot
     {
         if (quantityToAdd <= 0)
         {
-            throw new DomainException(ItemErros.NonNegativeStock());
+            throw new DomainException(ItemErrors.NonNegativeStock());
         }
         if (costStrategy == null)
         {
-            throw new DomainException(ItemErros.CostStrategyNotProvided());
+            throw new DomainException(ItemErrors.CostStrategyNotProvided());
         }
         // Calculate the new unitary cost based on the provided cost strategy
         int totalStock = Stock + quantityToAdd;
@@ -56,7 +56,7 @@ public class Item : AggregateRoot
     {
         if (quantityToSubstract > Reserved)
         {
-            throw new DomainException(ItemErros.InsuficentStockToSubstract(Reserved, quantityToSubstract));
+            throw new DomainException(ItemErrors.InsuficentStockToSubstract(Reserved, quantityToSubstract));
         }
         Reserved -= quantityToSubstract;
         Stock -= quantityToSubstract;
@@ -67,7 +67,7 @@ public class Item : AggregateRoot
     {
         if (quantityToReserve > Available)
         {
-            throw new DomainException(ItemErros.InsuficentStockToReserve(Stock, quantityToReserve));
+            throw new DomainException(ItemErrors.InsuficentStockToReserve(Stock, quantityToReserve));
         }
         Reserved += quantityToReserve;
         Available -= quantityToReserve;
@@ -77,7 +77,7 @@ public class Item : AggregateRoot
     {
         if (quantityToUnreserve > Reserved)
         {
-            throw new DomainException(ItemErros.InsuficentStockToSubstract(Reserved, quantityToUnreserve));
+            throw new DomainException(ItemErrors.InsuficentStockToSubstract(Reserved, quantityToUnreserve));
         }
         Reserved -= quantityToUnreserve;
         Available += quantityToUnreserve;

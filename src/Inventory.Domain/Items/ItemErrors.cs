@@ -2,7 +2,7 @@
 
 namespace Inventory.Domain.Items;
 
-public static class ItemErros
+public static class ItemErrors
 {
     public static Error InsuficentStockToSubstract(int currentStock, int requestedStock)
     {
@@ -19,7 +19,7 @@ public static class ItemErros
     public static Error NonNegativeStock() =>
         new Error("NonNegativeStock", "The value for cannot be negative", ErrorType.Validation);
 
-    internal static Error CostStrategyNotProvided() =>
+    public static Error CostStrategyNotProvided() =>
         new Error("CostStrategyNotProvided", "A cost strategy must be provided to calculate the new unitary cost", 
             ErrorType.Validation);
 

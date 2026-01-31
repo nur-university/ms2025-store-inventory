@@ -1,6 +1,6 @@
 ﻿namespace Inventory.Domain.Items;
 
-internal class AverageCostStrategy : ICostStrategy
+public class AverageCostStrategy : ICostStrategy
 {
     public decimal CalculateNewCost(int currentStock, decimal currentUnitaryCost, 
         int newStockToAdd, decimal newUnitaryCost)
