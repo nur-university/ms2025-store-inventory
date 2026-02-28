@@ -9,7 +9,7 @@ public static class MigrationExtensions
         using IServiceScope scope = app.ApplicationServices.CreateScope();
 
         using var db =
-            scope.ServiceProvider.GetRequiredService<IDatabase>();
+                            scope.ServiceProvider.GetRequiredService<IDatabase>();
 
         db.Migrate();
     }
