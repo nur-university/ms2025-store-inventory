@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Inventory.Infrastructure.Persistence.PersistenceModel.Entities;
 
 [Table("transaction")]
-internal class TransactionPersistenceModel 
+internal class TransactionPersistenceModel
 {
     [Key]
     [Column("transactionId")]

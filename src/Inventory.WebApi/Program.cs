@@ -2,9 +2,20 @@ using Inventory.Infrastructure;
 using Inventory.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                                        policy =>
+                                        {
+                                            policy
+                                                        .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173")
+                                                            .AllowAnyHeader()
+                                                            .AllowAnyMethod();
+                                        });
+});
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,8 +31,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.ApplyMigrations();
 }
+//app.UseHttpsRedirection();
+app.UseCors(MyAllowSpecificOrigins);
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

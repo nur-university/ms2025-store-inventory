@@ -48,7 +48,7 @@ internal class TransactionRepository : ITransactionRepository
         var added = transaction.DomainEvents.Where(e => e is TransactionItemAdded)
             .Select(e => (TransactionItemAdded)e)
             .ToList();
-        foreach(var e in added)
+        foreach (var e in added)
         {
             var itemToAdd = transaction.Items.First(i => i.ItemId == e.ItemId);
             _dbContext.TransactionItem.Add(itemToAdd);
