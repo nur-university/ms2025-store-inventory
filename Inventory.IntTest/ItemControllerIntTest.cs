@@ -23,7 +23,7 @@ namespace Inventory.IntTest
                    itemName = "Test Item"
                }, "/api/Item")
                .Send();
-           
+
 
             response.Should()
                 .NotBeNull()

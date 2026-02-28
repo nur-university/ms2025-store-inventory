@@ -6,7 +6,7 @@ public static class ItemErrors
 {
     public static Error InsuficentStockToSubstract(int currentStock, int requestedStock)
     {
-        return new Error("InsuficentStockToSubstract", "The current stock is {currentStock}, it cannot substract {requestedStock}", 
+        return new Error("InsuficentStockToSubstract", "The current stock is {currentStock}, it cannot substract {requestedStock}",
             ErrorType.Validation, currentStock, requestedStock);
     }
 
@@ -20,7 +20,7 @@ public static class ItemErrors
         new Error("NonNegativeStock", "The value for cannot be negative", ErrorType.Validation);
 
     public static Error CostStrategyNotProvided() =>
-        new Error("CostStrategyNotProvided", "A cost strategy must be provided to calculate the new unitary cost", 
+        new Error("CostStrategyNotProvided", "A cost strategy must be provided to calculate the new unitary cost",
             ErrorType.Validation);
 
     internal static Error NameIsRequired() => new Error("NameIsRequired", "The item name is required", ErrorType.Validation);
