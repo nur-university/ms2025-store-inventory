@@ -38,6 +38,6 @@ namespace Inventory.IntTest.Factories
             client.BaseAddress = new Uri(url);
             return await client.SendAsync(requestMessage);
         }
-        
+
     }
 }

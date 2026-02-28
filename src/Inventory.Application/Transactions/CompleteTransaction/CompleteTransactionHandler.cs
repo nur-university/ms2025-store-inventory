@@ -10,7 +10,7 @@ internal class CompleteTransactionHandler : IRequestHandler<CompleteTransactionC
     private readonly ITransactionRepository _transactionRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CompleteTransactionHandler(ITransactionRepository transactionRepository, 
+    public CompleteTransactionHandler(ITransactionRepository transactionRepository,
         IUnitOfWork unitOfWork)
     {
         _transactionRepository = transactionRepository;

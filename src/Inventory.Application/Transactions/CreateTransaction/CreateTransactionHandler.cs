@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Inventory.Application.Transactions.CreateTransaction;
 
-internal class CreateTransactionHandler : 
+internal class CreateTransactionHandler :
     IRequestHandler<CreateTransactionCommand, Result<Guid>>
 {
     private readonly ITransactionFactory _transactionFactory;
@@ -15,8 +15,8 @@ internal class CreateTransactionHandler :
     private readonly IItemRepository _itemRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateTransactionHandler(ITransactionFactory transactionFactory, 
-        ITransactionRepository transactionRepository, 
+    public CreateTransactionHandler(ITransactionFactory transactionFactory,
+        ITransactionRepository transactionRepository,
         IItemRepository itemRepository,
         IUnitOfWork unitOfWork)
     {
@@ -31,7 +31,7 @@ internal class CreateTransactionHandler :
         foreach (var item in request.Items)
         {
             var existingItem = await _itemRepository.GetByIdAsync(item.ItemId, readOnly: true);
-            if(existingItem == null)
+            if (existingItem == null)
             {
                 return Result.Failure<Guid>(Error.NotFound("ItemNotFound", "Item with id {itemId} not found", item.ItemId.ToString()));
             }
@@ -42,11 +42,11 @@ internal class CreateTransactionHandler :
         {
             "Entry" => _transactionFactory.CreateEntryTransaction(
                 request.UserCreatorId,
-                [.. request.Items.Select(i => (i.ItemId, i.Quantity, i.UnitaryCost))]
+                [..request.Items.Select(i => (i.ItemId, i.Quantity, i.UnitaryCost))]
             ),
             "Exit" => _transactionFactory.CreateExitTransaction(
                 request.UserCreatorId,
-                [.. request.Items.Select(i => (i.ItemId, i.Quantity))],
+                [..request.Items.Select(i => (i.ItemId, i.Quantity))],
                 request.SourceId,
                 request.SourceType
             ),
