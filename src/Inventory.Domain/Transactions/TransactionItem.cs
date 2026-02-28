@@ -6,7 +6,7 @@ namespace Inventory.Domain.Transactions;
 
 public class TransactionItem : Entity
 {
-    public Guid  ItemId { get; private set; }
+    public Guid ItemId { get; private set; }
     public CostValue UnitaryCost { get; private set; }
     public CostValue SubTotal { get; private set; }
 

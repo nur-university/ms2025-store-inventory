@@ -9,8 +9,8 @@ public record TransactionCompleted : DomainEvent
 
     public ICollection<TransactionCompletedDetail> Details { get; init; }
 
-    public TransactionCompleted(Guid transactionId, 
-        TransactionType type, 
+    public TransactionCompleted(Guid transactionId,
+        TransactionType type,
         ICollection<TransactionCompletedDetail> details)
     {
         TransactionId = transactionId;

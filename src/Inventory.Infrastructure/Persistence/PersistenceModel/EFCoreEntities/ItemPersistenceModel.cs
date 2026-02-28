@@ -16,7 +16,7 @@ internal class ItemPersistenceModel
     public string ItemName { get; set; }
 
     [Column("stock")]
-    [Required]      
+    [Required]
     public int Stock { get; set; }
 
     [Column("reserved")]

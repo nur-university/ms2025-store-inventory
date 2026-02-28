@@ -9,15 +9,15 @@ namespace Inventory.Domain.Transactions;
 
 public class TransactionFactory : ITransactionFactory
 {
-    public Transaction CreateEntryTransaction(Guid userCreatorId, 
-        List<(Guid itemId, int quantity, decimal unitaryCost)> items, 
+    public Transaction CreateEntryTransaction(Guid userCreatorId,
+        List<(Guid itemId, int quantity, decimal unitaryCost)> items,
         Guid? sourceId = null, string? sourceType = null)
     {
-        if(userCreatorId == Guid.Empty)
+        if (userCreatorId == Guid.Empty)
         {
             throw new ArgumentException("User creator id is required");
         }
-        if(items == null || items.Count == 0)
+        if (items == null || items.Count == 0)
         {
             throw new ArgumentException("At least one item is required to create an entry transaction");
         }
@@ -31,8 +31,8 @@ public class TransactionFactory : ITransactionFactory
         return transaction;
     }
 
-    public Transaction CreateExitTransaction(Guid userCreatorId, 
-        List<(Guid itemId, int quantity)> items, 
+    public Transaction CreateExitTransaction(Guid userCreatorId,
+        List<(Guid itemId, int quantity)> items,
         Guid? sourceId = null, string? sourceType = null)
     {
         if (userCreatorId == Guid.Empty)
@@ -50,14 +50,14 @@ public class TransactionFactory : ITransactionFactory
             transaction.AddItem(item.itemId, item.quantity, 0);
         }
 
-        if(sourceId != null && sourceType != null)
+        if (sourceId != null && sourceType != null)
         {
             transaction.AddDomainEvent(new TransactionReserved()
             {
                 SourceId = sourceId.Value,
                 SourceType = sourceType,
             });
-        }        
+        }
 
         return transaction;
     }
