@@ -19,13 +19,15 @@ public class Transaction : AggregateRoot
     public Guid? SourceId { get; private set; }
 
     public string? SourceType { get; set; }
-    public IReadOnlyCollection<TransactionItem> Items { 
-        get {
+    public IReadOnlyCollection<TransactionItem> Items
+    {
+        get
+        {
             return _items.AsReadOnly();
-        } 
+        }
     }
 
-    internal Transaction(Guid creatorId, TransactionType type, Guid? sourceId = null, string? sourceType= null) : base(Guid.NewGuid())
+    internal Transaction(Guid creatorId, TransactionType type, Guid? sourceId = null, string? sourceType = null) : base(Guid.NewGuid())
     {
         CreatorId = creatorId;
         Status = TransactionStatus.Created;
@@ -39,7 +41,7 @@ public class Transaction : AggregateRoot
 
     public void AddItem(Guid itemId, int quantity, decimal unitaryCost)
     {
-        if(Status != TransactionStatus.Created)
+        if (Status != TransactionStatus.Created)
         {
             throw new InvalidOperationException("Cannot add items to a transaction that is not in Created status");
         }
@@ -50,7 +52,7 @@ public class Transaction : AggregateRoot
 
         AddDomainEvent(new TransactionItemAdded(itemId));
 
-        if(Type == TransactionType.Exit)
+        if (Type == TransactionType.Exit)
         {
             var domainEvent = new TransactionItemReserved(itemId, quantity, Id);
             AddDomainEvent(domainEvent);
@@ -63,7 +65,7 @@ public class Transaction : AggregateRoot
         {
             throw new InvalidOperationException("Cannot complete a transaction that is not in Created status");
         }
-        if(_items.Count == 0)
+        if (_items.Count == 0)
         {
             throw new InvalidOperationException("Cannot complete a transaction with no items");
         }
@@ -86,7 +88,7 @@ public class Transaction : AggregateRoot
         Status = TransactionStatus.Canceled;
         CancelDate = DateTime.UtcNow;
 
-        if(Type == TransactionType.Entry)
+        if (Type == TransactionType.Entry)
         {
             return;
         }
@@ -129,5 +131,5 @@ public class Transaction : AggregateRoot
     }
 
     //Need for EF Core
-    private Transaction(){ }
+    private Transaction() { }
 }

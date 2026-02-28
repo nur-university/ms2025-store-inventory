@@ -9,7 +9,7 @@ public class Item : AggregateRoot
     public string Name { get; private set; }
     public QuantityValue Stock { get; private set; }
     public QuantityValue Reserved { get; private set; }
-    public QuantityValue Available { get; private set; } 
+    public QuantityValue Available { get; private set; }
     public CostValue UnitaryCost { get; private set; }
 
     public Item(Guid id, string name) : base(id)
@@ -32,7 +32,7 @@ public class Item : AggregateRoot
     /// <param name="unitaryCost">Unitary cost of new stock added</param>
     /// <param name="costStrategy">Cost strategy to calculate the new unitary cost</param>"
     /// <exception cref="DomainException"></exception>
-    public void AddStock(int quantityToAdd, decimal unitaryCost, 
+    public void AddStock(int quantityToAdd, decimal unitaryCost,
         ICostStrategy costStrategy)
     {
         if (quantityToAdd <= 0)
@@ -45,9 +45,9 @@ public class Item : AggregateRoot
         }
         // Calculate the new unitary cost based on the provided cost strategy
         int totalStock = Stock + quantityToAdd;
-        UnitaryCost = costStrategy.CalculateNewCost(Stock, UnitaryCost, 
+        UnitaryCost = costStrategy.CalculateNewCost(Stock, UnitaryCost,
             quantityToAdd, unitaryCost);
-        
+
         Stock = totalStock;
         Available = Stock - Reserved;
     }
