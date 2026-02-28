@@ -19,15 +19,15 @@ public class ItemController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateItem([FromBody]CreateItemCommand request)
+    public async Task<IActionResult> CreateItem([FromBody] CreateItemCommand request)
     {
         var result = await _mediator.Send(request);
 
-        if(result.IsFailure)
+        if (result.IsFailure)
         {
             return result.Error.Type == Joseco.DDD.Core.Results.ErrorType.NotFound ?
-                NotFound(result.Error.Description) :
-                BadRequest(result.Error);
+                            NotFound(result.Error.Description) :
+                            BadRequest(result.Error);
         }
 
         return Ok(result);

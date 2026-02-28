@@ -17,7 +17,7 @@ public class TransactionController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateTransaction([FromBody]CreateTransactionCommand request)
+    public async Task<IActionResult> CreateTransaction([FromBody] CreateTransactionCommand request)
     {
         var result = await _mediator.Send(request);
         return Ok(result.Value);
